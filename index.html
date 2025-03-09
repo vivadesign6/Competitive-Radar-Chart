@@ -20,8 +20,8 @@
             color: #333;
         }
         canvas {
-            width: 600px !important;
-            height: 600px !important;
+            width: 700px;
+            height: 600px;
         }
     </style>
 </head>
@@ -74,15 +74,45 @@
                 type: 'radar',
                 data: data,
                 options: {
-                    responsive: true,
+                    responsive: false,
                     maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 2
+                        }
+                    },
                     scales: {
                         r: {
                             beginAtZero: true,
                             min: 0,
                             max: 100,
                             ticks: {
-                                stepSize: 10
+                                stepSize: 10,
+                                font: {
+                                    size: 12
+                                }
+                            },
+                            angleLines: {
+                                color: "#ccc"
+                            },
+                            grid: {
+                                color: "#ddd"
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14
+                                }
                             }
                         }
                     }
