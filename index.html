@@ -106,13 +106,6 @@
                                 font: {
                                     size: 14,
                                     weight: 'bold'
-                                },
-                                callback: function(value, index) {
-                                    const newPositions = {
-                                        7: "Learning Depth", // Left Side
-                                        6: "User Engagement" // Bottom
-                                    };
-                                    return newPositions[index] || value;
                                 }
                             }
                         }
@@ -123,12 +116,47 @@
                             labels: {
                                 font: {
                                     size: 14
+                                },
+                                usePointStyle: true,
+                                generateLabels: function(chart) {
+                                    const labels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                                    labels.forEach(label => {
+                                        label.hidden = false;
+                                    });
+                                    return labels;
+                                },
+                                onHover: function(e, legendItem, legend) {
+                                    const index = legendItem.datasetIndex;
+                                    chart.data.datasets.forEach((dataset, i) => {
+                                        dataset.backgroundColor = i === index ? dataset.backgroundColor.replace("0.5", "0.8") : dataset.backgroundColor.replace("0.5", "0.2");
+                                    });
+                                    chart.update();
+                                },
+                                onLeave: function(e, legendItem, legend) {
+                                    chart.data.datasets.forEach(dataset => {
+                                        dataset.backgroundColor = dataset.backgroundColor.replace(/0\.\d/, "0.5");
+                                    });
+                                    chart.update();
                                 }
                             }
                         },
                         tooltip: {
                             enabled: true,
                             mode: 'nearest'
+                        }
+                    },
+                    onHover: function(event, activeElements) {
+                        if (activeElements.length > 0) {
+                            const datasetIndex = activeElements[0].datasetIndex;
+                            chart.data.datasets.forEach((dataset, i) => {
+                                dataset.borderWidth = i === datasetIndex ? 5 : 2;
+                            });
+                            chart.update();
+                        } else {
+                            chart.data.datasets.forEach(dataset => {
+                                dataset.borderWidth = 3;
+                            });
+                            chart.update();
                         }
                     }
                 }
