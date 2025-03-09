@@ -36,21 +36,12 @@
                 labels: ["Brand Awareness", "Mobile Experience", "Learning Depth", "User Engagement", "Social Media", "Content Quality", "Gamification", "Value for Money"],
                 datasets: [
                     {
-                        label: 'Duolingo',
-                        data: [90, 85, 75, 80, 70, 60, 95, 80],
+                        label: 'Memrise',
+                        data: [85, 75, 65, 70, 95, 80, 60, 55],
                         fill: true,
-                        backgroundColor: 'rgba(88, 204, 2, 0.5)',
-                        borderColor: 'rgb(88, 204, 2)',
-                        pointBackgroundColor: 'rgb(88, 204, 2)',
-                        borderWidth: 3
-                    },
-                    {
-                        label: 'Babbel',
-                        data: [80, 70, 85, 75, 85, 95, 70, 60],
-                        fill: true,
-                        backgroundColor: 'rgba(49, 137, 217, 0.5)',
-                        borderColor: 'rgb(49, 137, 217)',
-                        pointBackgroundColor: 'rgb(49, 137, 217)',
+                        backgroundColor: 'rgba(156, 49, 217, 0.5)',
+                        borderColor: 'rgb(156, 49, 217)',
+                        pointBackgroundColor: 'rgb(156, 49, 217)',
                         borderWidth: 3
                     },
                     {
@@ -63,12 +54,21 @@
                         borderWidth: 3
                     },
                     {
-                        label: 'Memrise',
-                        data: [85, 75, 65, 70, 95, 80, 60, 55],
+                        label: 'Babbel',
+                        data: [80, 70, 85, 75, 85, 95, 70, 60],
                         fill: true,
-                        backgroundColor: 'rgba(156, 49, 217, 0.5)',
-                        borderColor: 'rgb(156, 49, 217)',
-                        pointBackgroundColor: 'rgb(156, 49, 217)',
+                        backgroundColor: 'rgba(49, 137, 217, 0.5)',
+                        borderColor: 'rgb(49, 137, 217)',
+                        pointBackgroundColor: 'rgb(49, 137, 217)',
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Duolingo',
+                        data: [90, 85, 75, 80, 70, 60, 95, 80],
+                        fill: true,
+                        backgroundColor: 'rgba(88, 204, 2, 0.5)',
+                        borderColor: 'rgb(88, 204, 2)',
+                        pointBackgroundColor: 'rgb(88, 204, 2)',
                         borderWidth: 3
                     }
                 ]
@@ -122,6 +122,22 @@
                         tooltip: {
                             enabled: true,
                             mode: 'nearest'
+                        }
+                    },
+                    onHover: (event, elements) => {
+                        if (elements.length) {
+                            const datasetIndex = elements[0].datasetIndex;
+                            chart.data.datasets.forEach((dataset, index) => {
+                                dataset.borderWidth = index === datasetIndex ? 5 : 1.5;
+                                dataset.backgroundColor = index === datasetIndex ? dataset.backgroundColor.replace('0.5', '0.8') : dataset.backgroundColor.replace('0.5', '0.2');
+                            });
+                            chart.update();
+                        } else {
+                            chart.data.datasets.forEach((dataset) => {
+                                dataset.borderWidth = 3;
+                                dataset.backgroundColor = dataset.backgroundColor.replace('0.8', '0.5');
+                            });
+                            chart.update();
                         }
                     }
                 }
