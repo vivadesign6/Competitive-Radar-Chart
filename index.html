@@ -33,7 +33,7 @@
             const ctx = document.getElementById('radarChart').getContext('2d');
             
             const data = {
-                labels: ["Brand Awareness", "Mobile Experience", "Learning Depth", "User Engagement", "Social Media", "Content Quality", "Gamification", "Value for Money"],
+                labels: ["Brand Awareness", "Mobile Experience", "Value for Money", "Gamification", "Content Quality", "Social Media", "User Engagement", "Learning Depth"],
                 datasets: [
                     {
                         label: 'Memrise',
@@ -106,13 +106,6 @@
                                 font: {
                                     size: 14,
                                     weight: 'bold'
-                                },
-                                callback: function(value, index) {
-                                    const newPositions = {
-                                        2: "Learning Depth", // Left Side
-                                        3: "User Engagement" // Bottom
-                                    };
-                                    return newPositions[index] || value;
                                 }
                             }
                         }
