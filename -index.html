@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitive Radar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        canvas {
+            max-width: 700px;
+            max-height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Competitive Radar Chart</h1>
+    <canvas id="radarChart"></canvas>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            
+            const data = {
+                labels: ["Brand Awareness", "User Engagement", "Mobile Experience", "Learning Depth", "Social Media", "Content Quality", "Gamification", "Value for Money"],
+                datasets: [
+                    {
+                        label: 'Duolingo',
+                        data: [90, 85, 75, 80, 70, 60, 95, 80],
+                        fill: true,
+                        backgroundColor: 'rgba(88, 204, 2, 0.5)',
+                        borderColor: 'rgb(88, 204, 2)',
+                        pointBackgroundColor: 'rgb(88, 204, 2)',
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Babbel',
+                        data: [80, 70, 85, 75, 85, 95, 70, 60],
+                        fill: true,
+                        backgroundColor: 'rgba(49, 137, 217, 0.5)',
+                        borderColor: 'rgb(49, 137, 217)',
+                        pointBackgroundColor: 'rgb(49, 137, 217)',
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Rosetta Stone',
+                        data: [75, 60, 80, 85, 90, 70, 65, 50],
+                        fill: true,
+                        backgroundColor: 'rgba(217, 49, 49, 0.5)',
+                        borderColor: 'rgb(217, 49, 49)',
+                        pointBackgroundColor: 'rgb(217, 49, 49)',
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Memrise',
+                        data: [85, 75, 65, 70, 95, 80, 60, 55],
+                        fill: true,
+                        backgroundColor: 'rgba(156, 49, 217, 0.5)',
+                        borderColor: 'rgb(156, 49, 217)',
+                        pointBackgroundColor: 'rgb(156, 49, 217)',
+                        borderWidth: 3
+                    }
+                ]
+            };
+            
+            const chart = new Chart(ctx, {
+                type: 'radar',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                stepSize: 10,
+                                font: {
+                                    size: 12
+                                }
+                            },
+                            angleLines: {
+                                color: "#ccc"
+                            },
+                            grid: {
+                                color: "#ddd"
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            enabled: true,
+                            mode: 'nearest'
+                        }
+                    },
+                    onHover: (event, elements) => {
+                        if (elements.length) {
+                            const datasetIndex = elements[0].datasetIndex;
+                            chart.data.datasets.forEach((dataset, index) => {
+                                dataset.borderWidth = index === datasetIndex ? 5 : 3;
+                            });
+                            chart.update();
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
