@@ -70,7 +70,7 @@
                 ]
             };
             
-            new Chart(ctx, {
+            const chart = new Chart(ctx, {
                 type: 'radar',
                 data: data,
                 options: {
@@ -114,6 +114,19 @@
                                     size: 14
                                 }
                             }
+                        },
+                        tooltip: {
+                            enabled: true,
+                            mode: 'nearest'
+                        }
+                    },
+                    onHover: (event, elements) => {
+                        if (elements.length) {
+                            const datasetIndex = elements[0].datasetIndex;
+                            chart.data.datasets.forEach((dataset, index) => {
+                                dataset.borderWidth = index === datasetIndex ? 4 : 2;
+                            });
+                            chart.update();
                         }
                     }
                 }
