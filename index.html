@@ -106,6 +106,13 @@
                                 font: {
                                     size: 14,
                                     weight: 'bold'
+                                },
+                                callback: function(value, index) {
+                                    const newPositions = {
+                                        7: "Learning Depth", // Left Side
+                                        6: "User Engagement" // Bottom
+                                    };
+                                    return newPositions[index] || value;
                                 }
                             }
                         }
